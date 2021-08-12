@@ -1,7 +1,0 @@
-8
-1	James	117
-1	John	117
-2	Fred	104
-3	Kelly	87
-3	Linda	87
-4	Sam	64
