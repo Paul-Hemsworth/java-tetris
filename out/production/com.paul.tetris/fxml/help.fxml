@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.Group?>
+<?import com.paul.tetris.customshapes.ArrowKeyShape?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:id="helpBorderPane" stylesheets="@style.css" styleClass="region">
+    <top>
+        <HBox alignment="CENTER">
+            <Label text="Help" styleClass="headerLabel"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="TOP_CENTER">
+            <TextFlow>
+                <Text styleClass="text">
+                    One block at a time will fall from the top of the screen to the bottom.
+                    Use the arrow keys to orient the active block as it fall.
+                    Points are awarded for complete rows of stacked blocks and the rows will be removed.
+                    The game ends when the stack of blocks is tall enough to prevent the insertion of another block.
+                </Text>
+            </TextFlow>
+            <Group autoSizeChildren="false">
+                <ArrowKeyShape fx:id="rightArrow" translateX="100" translateY="50" size="50"/>
+                <ArrowKeyShape fx:id="leftArrow" translateY="50" rotate="180" size="50"/>
+                <ArrowKeyShape fx:id="upArrow" translateX="50" rotate="270" size="50"/>
+                <ArrowKeyShape fx:id="downArrow" translateX="50" translateY="50" rotate="90" size="50"/>
+            </Group>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER">
+           <Button onAction="#handleBack">Back</Button>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,64 @@
+<project name="Tetris" default="build" basedir=".">
+    <description>
+        The game Tetris made with Java.
+    </description>
+
+    <property name="app.name" value="tetris"/>
+    <property name="tetris.module" value="com.paul.tetris"/>
+    <property name="javafx" value="/home/paul/IdeaProjects/lib/javafx-sdk-11.0.2/lib"/>
+    <property name="jfx-jmods" value="/home/paul/IdeaProjects/lib/javafx-jmods-11.0.2"/>
+    <property name="base-jmods" value="${java.home}/jmods"/>
+    <property name="src.home" value="${basedir}/src"/>
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="dist.home" value="${basedir}/dist"/>
+    <property name="main.class" value="com.paul.tetris.TetrisMain"/>
+    <property name="res.home" value="${basedir}/res"/>
+
+    <path id="javafx.modulepath">
+        <fileset dir="${javafx}">
+            <include name="**.jar"/>
+        </fileset>
+    </path>
+
+    <path id="jmods.modulepath">
+        <fileset dir="${jfx-jmods}"/>
+        <fileset dir="${base-jmods}"/>
+        <file file="${build.home}/${tetris.module}.jmod"/>
+    </path>
+
+    <target name="prepare">
+        <mkdir dir="${build.home}"/>
+        <mkdir dir="${build.home}/${tetris.module}"/>
+        <mkdir dir="${dist.home}"/>
+        <copy todir="${build.home}/${tetris.module}">
+            <fileset dir="${res.home}"/>
+        </copy>
+    </target>
+
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src.home}"
+               destdir="${build.home}/${tetris.module}"
+               includeantruntime="false">
+            <modulepath refid="javafx.modulepath"/>
+        </javac>
+    </target>
+
+    <target name="getVersion">
+        <echo>${ant.version}</echo>
+        <echo>${java.home}</echo>
+    </target>
+
+    <target name="build" depends="compile">
+        <jmod destFile="${build.home}/${tetris.module}.jmod" classpath="${build.home}/${tetris.module}"/>
+
+        <link destDir="${dist.home}" modulepathref="jmods.modulepath">
+            <module name="${tetris.module}"/>
+            <launcher name="tetris" module="${tetris.module}" mainclass="${main.class}"/>
+        </link>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.home}"/>
+        <delete dir="${dist.home}"/>
+    </target>
+</project>
